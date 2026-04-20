@@ -19,17 +19,23 @@ pub fn run() {
             .title("GameOfChance")
             .inner_size(1000.0, 800.0)
             .initialization_script(r#"
-                window.alert = function(message) {
-                    if (window.__TAURI__?.dialog) {
-                        window.__TAURI__.dialog.message(String(message));
+                const d = window.__TAURI__?.dialog;
+                if (d) {
+                    window.alert = m => d.message(String(m));
+                    window.confirm = m => (d.confirm(String(m)), true);
+                }
+
+                const style = document.createElement('style');
+                style.textContent = `
+                    html, body {
+                        overscroll-behavior: none;
+                        position: fixed;
+                        overflow: hidden;
+                        width: 100%;
+                        height: 100%;
                     }
-                };
-                window.confirm = function(message) {
-                    if (window.__TAURI__?.dialog) {
-                        window.__TAURI__.dialog.confirm(String(message));
-                    }
-                    return true;
-                };
+                `;
+                (document.head || document.documentElement).appendChild(style);
             "#)
             .build()?;
             Ok(())
