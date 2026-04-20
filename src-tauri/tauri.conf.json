@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "agoc-desktop",
+  "version": "0.1.0",
+  "identifier": "com.lucaslum.agoc-desktop",
+  "build": {
+    "beforeDevCommand": "",
+    "beforeBuildCommand": ""
+  },
+  "app": {
+    "windows": []
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "macOS": {
+      "signingIdentity": "${APPLE_SIGNING_IDENTITY}"
+    },
+    "icon": [
+      "icons/icon.icns"
+    ]
+  }
+}
